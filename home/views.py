@@ -488,7 +488,7 @@ def edit_product(request):
 
 def all_users(request):
     if request.user.is_superuser:
-        users = UserDetails.objects.all()
+        users = reversed(UserDetails.objects.all())
         context = {
             'users': users,
         }
