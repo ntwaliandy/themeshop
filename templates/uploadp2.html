@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+        {% if context != '' or context != None %}
+            <section class="admin-content">
+                    <div class=" bg-dark m-b-30 bg-stars">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 m-auto text-white p-t-40 p-b-90">
+                                    <h1>STEP 2 of 2:  Thumbnail & File upload</h1>
+                                    <p class="opacity-75">
+                                        Upload a screenshot of the product in the first section and your zip file in the next section
+                                    </p>
+
+                                </div>
+                                <div class="col-md-4 m-auto text-white p-t-40 p-b-90">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <!-- Content goes here -->
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="m-b-30">
+                                    
+                                    <!-- <div class="card-body">
+                                        <div class="card m-b-30">
+                                            <div class="card-header">
+                                                <h5 class="m-b-0">
+                                                    Thumbnail <span class="text-danger">*</span>
+                                                </h5>
+                                                <p class="m-b-0 text-muted">
+                                                    Screenshot the product to be uploaded and uplod here
+                                                </p>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <form class="dropzone" action="" enctype="multipart/form-data">
+                                                    <div class="dz-message">
+                                                        <h1 class="display-4">
+                                                            <i class=" mdi mdi-progress-upload"></i>
+                                                        </h1>
+                                                        Drop file here or click to upload.<BR>
+                                                        <SPAN class="note needsclick">(File format must be <strong>*.jpg, *.jpeg, *.png</strong> only)</SPAN>
+                                                        <div class="p-t-5">
+                                                            <a href="#" class="btn btn-lg btn-primary">Upload File</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="card m-b-30">
+                                            <div class="card-header">
+                                                <h5 class="m-b-0">
+                                                    Product <span class="text-danger">*</span>
+                                                </h5>
+                                                <p class="m-b-0 text-muted">
+                                                    Save your file as a <strong>.zip</strong> file and upload here
+                                                </p>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <form class="dropzone" action="https://atmos.atomui.com/">
+                                                    <div class="dz-message">
+                                                        <h1 class="display-4">
+                                                            <i class=" mdi mdi-progress-upload"></i>
+                                                        </h1>
+                                                        Drop file here or click to upload.<BR>
+                                                        <SPAN class="note needsclick">(File format must be <strong>*.zip only</strong> )</SPAN>
+                                                        <div class="p-t-5">
+                                                            <a href="#" class="btn btn-lg btn-primary">Upload File</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div> -->
+
+
+                                    <!-- Edited starts here -->
+                                    <form class="col-12" action="{% url 'home:product_upload2' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="hidden" value="{{ context }}" name="product_id">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-10">
+                                                <label for="thumbnail">Thumbnail <span class="text-danger">*</span></label>
+                                                <input type="file" class="form-control" required name="thumbnail" id="thumbnail">
+                                                <small class="text-muted">A screenshot of your product</small>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-10">
+                                                <label for="zipfile">File (*.zip) <span class="text-danger">*</span></label>
+                                                <input type="file" class="form-control" required name="zipfile" id="zipfile">
+                                                <small class="text-muted">A zip file of your product</small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ml-3">
+                                            <button class="btn btn-secondary">Back</button>
+                                            <button class="btn btn-success" type="submit">Finish</button>
+                                        </div>
+                                    </form>
+                                    <!-- Edited ends here -->
+
+                                </div>
+                                <!--widget card ends-->
+                            </div>
+                        </div>
+                    </div>
+
+            </section>
+        {% else %}
+            <h1 class="text-center">Empty Product</h1>
+        {% endif %}
+
+    {% endblock %}

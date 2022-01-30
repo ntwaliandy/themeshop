@@ -1,0 +1,637 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+    <!--site header ends -->    
+    <section class="admin-content">
+            <div class=" bg-dark m-b-30 bg-stars">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 m-auto text-white p-t-40 p-b-90">
+
+                            <h1>STEP 1 of 2:  Product Details</h1>
+                            <p class="opacity-75">
+                                Use this page to add new item to the catalogue
+                            </p>
+
+                        </div>
+                        <div class="col-md-4 m-auto text-white p-t-40 p-b-90">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Content goes here -->
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <!--widget card begin-->
+                        <div class="m-b-30">
+                            <div class="card-header">
+                                <h4 class="m-b-0">
+                                    Product Information
+                                </h4>
+                                <p class="m-b-0 text-muted">
+                                    All fields marked with <span class="text-danger">*</span> are required
+                                </p>
+                            </div>
+                            <div class="card-body">
+                                {% if action != 'edit' %}
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="brand">Brand <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" required name="brand">
+                                            <small class="text-muted">A short and unique name for your product</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="tagline">Tagline <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" required name="tagline">
+                                            <small class="text-muted">A precise description about your product</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <p class="font-secondary">Product price <span class="text-danger">*</span></p>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupFileAddon01">$</span>
+                                            </div>
+                                            <div class="custom-file col-md-3 pl-md-0">
+                                                <input type="number" class="form-control required" id="inputGroupFile01" name="singlePrice">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">Set a price for your product.</small>
+                                        <small class="text-muted">A minimum of <strong>$5</strong> and a maximum of <strong>$95</strong></small>
+                                        <p class="text-muted"><small>This is the product price for the <strong>Single License</strong></small></p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <p class="font-secondary">Product price (Multiple)</p>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupFileAddon01">$</span>
+                                            </div>
+                                            <div class="custom-file col-md-3 pl-md-0">
+                                                <input type="number" class="form-control " id="inputGroupFile01" name="multiplePrice">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">A minimum of <strong>$20</strong> and a maximum of <strong>$480</strong></small>
+                                        <p class="text-muted"><small>This is the product price for the <strong>Multiple License</strong></small></p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <p class="font-secondary">Product price (Extended)</p>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupFileAddon01">$</span>
+                                            </div>
+                                            <div class="custom-file col-md-3 pl-md-0">
+                                                <input type="number" class="form-control" id="inputGroupFile01" name="extendedPrice">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">A minimum of <strong>$200</strong> and a maximum of <strong>$4800</strong></small>
+                                        <p class="text-muted"><small>This is the product price for the <strong>Extended License</strong></small></p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <p class="font-secondary">Choose Payment gateway for customers<span class="text-danger">*</span>
+                                            (Default: paddle) </p>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" checked required id="customRadioInline1" name="gateway"
+                                                   class="custom-control-input" value="paddle">
+                                            <label class="custom-control-label" for="customRadioInline1">Pay with Paddle</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline2" name="gateway"
+                                                   class="custom-control-input" value="stripe">
+                                            <label class="custom-control-label" for="customRadioInline2">Pay with Stripe</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline3" name="gateway"
+                                                   class="custom-control-input" value="bitpay">
+                                            <label class="custom-control-label" for="customRadioInline3">BitPay</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="m-b-10">
+                                        <p class="font-secondary mb-2">
+                                            Compatible with <span class="text-danger">*</span>
+                                        </p>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio1" name="compatibility" value="Bootstrap5" required class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio1">Bootstrap 5.x</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio2" name="compatibility" value="Bootstrap4" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio2">Bootstrap 4.x</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio3" name="compatibility" value="Bootstrap3" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio3">Bootstrap 3.x</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio4" name="compatibility" value="Wordpress" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio4">Wordpress</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio5" name="compatibility" value="Jekyll" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio5">Jekyll</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio6" name="compatibility" value="react" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio6">React</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio7" name="compatibility" value="other" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio7">Other</label>
+                                        </div>
+                                        <p><small class="text-muted">Select the compatibility of your Item</small></p>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="version">Version <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" required name="version" id="version" value="1.0">
+                                            <small class="text-muted">Your product's current version number. Default is 1.0</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="m-b-10">
+                                        <p class="font-secondary mb-2">Browser Support <span class="text-danger">*</span></p>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="chrome" value="chrome" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">Chrome</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="firefox" value="firefox" class="custom-control-input" id="customCheck10">
+                                            <label class="custom-control-label" for="customCheck10">Firefox</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="safari" value="safari" class="custom-control-input" id="customCheck11">
+                                            <label class="custom-control-label" for="customCheck11">Safari</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="edge" value="edge" class="custom-control-input" id="customCheck13">
+                                            <label class="custom-control-label" for="customCheck13">Edge</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="explorer11" value="explorer11" class="custom-control-input" id="customCheck14">
+                                            <label class="custom-control-label" for="customCheck14">Eexplore 11</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="explorer10" value="explorer10" class="custom-control-input" id="customCheck15">
+                                            <label class="custom-control-label" for="customCheck15">Explore 10</label>
+                                        </div>
+                                        <small class="text-muted">All the above are selected by default. De-select if it does not apply</small>
+                                    </div>
+
+                                    <div class="m-b-10">
+                                        <p class="font-secondary mb-2">Layout Type</p>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="fixed"  class="custom-control-input" id="customCheck16">
+                                            <label class="custom-control-label" for="customCheck16">Fixed</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="responsive" class="custom-control-input" id="customCheck17">
+                                            <label class="custom-control-label" for="customCheck17">Responsive</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="fluid" class="custom-control-input" id="customCheck18">
+                                            <label class="custom-control-label" for="customCheck18">Fluid</label>
+                                        </div>
+                                        <small class="text-muted">Uncheck boxes if layout type is not applicable to your product</small>
+                                    </div>
+
+                                    <div class="m-b-15">
+                                        <p class="font-secondary mb-2">CSS Preprocessors</p>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="saas"  class="custom-control-input" id="customCheck19">
+                                            <label class="custom-control-label" for="customCheck19">Saas</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="scss" class="custom-control-input" id="customCheck20">
+                                            <label class="custom-control-label" for="customCheck20">SCSS</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="less" class="custom-control-input" id="customCheck21">
+                                            <label class="custom-control-label" for="customCheck21">Less</label>
+                                        </div>
+                                        <small class="text-muted">Mark the use above if your product includes CSS preprocessors</small>
+                                    </div>
+
+                                    <div class="m-b-10">
+                                        <p class="font-secondary mb-2">
+                                            Category <span class="text-danger">*</span>
+                                        </p>
+                                        <select class="custom-select js-select2" name="category" required="">
+                                            <option value="1">Ecommerce</option>
+                                            <option value="2">Digital Marketing</option>
+                                            <option value="3">Other</option>
+                                            <option value="4">Other2</option>
+                                        </select>
+                                        <small class="text-muted">Choose a category that best describes the purpose of your product</small>
+                                    </div>
+
+                                    <div class="m-b-15">
+                                        <p class="font-secondary mb-2">
+                                            Topic <span class="text-danger">*</span>
+                                        </p>
+                                        <select class="custom-select" name="topic" required="">
+                                            <option value="1">General</option>
+                                            <option value="2">Entrepreneaurs</option>
+                                            <option value="3">Two</option>
+                                            <option value="4">Three</option>
+                                        </select>
+                                        <small class="text-muted">Topic is the audience that your product is most related to</small>
+                                        <p><small class="text-muted">If none applies, choose <strong>General</strong></small></p>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label class="font-secondary">Tags <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" required name="tags"></textarea>
+                                        <p><small class="text-muted">10 keywords separated by commas (eg: modern, design, theme, landing page) that describes you product</small></p>
+                                    </div>
+
+                                    <div class="m-b-15">
+                                        <p class="font-secondary mb-2">
+                                            Status <span class="text-danger">*</span>
+                                        </p>
+                                        <select class="custom-select" name="status" required="">
+                                            <option value="">optional</option>
+                                            
+                                            <option value="published">published</option>
+                                            <option value="pending">pending</option>
+                                            <option value="removed">removed</option>
+                                            
+                                        </select>
+                                        <small class="text-muted">status helps to track the product movement.</small>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label class="font-secondary">Description <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" required="" rows="10" name="description"></textarea>
+                                        <p><small class="text-muted">Describe your product and it's features</small></p>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="preview">Preview URL <span class="text-danger">*</span></label>
+                                            <input type="URL" class="form-control" name="link" id="previewLink" placeholder="Https://devfrek1.000webhostapp.com">
+                                            <small class="text-muted">Provide the URL to the preview of your product</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Edited starts here -->
+                                    <div class="form-row">
+                                        <div class="form-group col-md-10">
+                                            <label for="thumbnail">Thumbnail <span class="text-danger">*</span></label>
+                                            <input type="file" class="form-control" required accept=".jpg, .jpeg, .png" name="thumbnail" id="thumbnail">
+                                            <small class="text-muted">A screenshot of your product</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-10">
+                                            <label for="zipfile">File (*.zip) <span class="text-danger">*</span></label>
+                                            <input type="file" class="form-control" accept=".zip" required name="zipfile" id="zipfile">
+                                            <small class="text-muted">A zip file of your product</small>
+                                        </div>
+                                    </div>
+                                    <!-- Edited ends here -->
+
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" required type="checkbox" id="gridCheck">
+                                            <label class="form-check-label" for="gridCheck"><strong>I agree</strong> that my product adheres to the <a href="#"><strong class="text-info">Terms</strong></a> and <a href="#"><strong class="text-info">Conditions</strong></a> regarding copyright
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        
+                                        <button class="btn btn-success" type="submit">save and continue</button>
+                                    </div>
+                                </form>
+                                <a href="/"><button class="btn btn-secondary">Back</button></a>
+
+                                {% else %}
+
+
+                                <form action="{% url 'home:edit-product' %}" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="prod_id" value="{{ product.id }}">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="brand">Brand <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" required name="brand" value="{{ product.brand }}">
+                                            <small class="text-muted">A short and unique name for your product</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="tagline">Tagline <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" required name="tagline" value="{{ product.tagline }}">
+                                            <small class="text-muted">A precise description about your product</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <p class="font-secondary">Product price <span class="text-danger">*</span></p>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupFileAddon01">$</span>
+                                            </div>
+                                            <div class="custom-file col-md-3 pl-md-0">
+                                                <input type="number" class="form-control required" id="inputGroupFile01" name="singlePrice" value="{{ product.single_price }}">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">Set a price for your product.</small>
+                                        <small class="text-muted">A minimum of <strong>$5</strong> and a maximum of <strong>$95</strong></small>
+                                        <p class="text-muted"><small>This is the product price for the <strong>Single License</strong></small></p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <p class="font-secondary">Product price (Multiple)</p>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupFileAddon01">$</span>
+                                            </div>
+                                            <div class="custom-file col-md-3 pl-md-0">
+                                                <input type="number" class="form-control " id="inputGroupFile01" name="multiplePrice" value="{{ product.multiple_price }}">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">A minimum of <strong>$20</strong> and a maximum of <strong>$480</strong></small>
+                                        <p class="text-muted"><small>This is the product price for the <strong>Multiple License</strong></small></p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <p class="font-secondary">Product price (Extended)</p>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupFileAddon01">$</span>
+                                            </div>
+                                            <div class="custom-file col-md-3 pl-md-0">
+                                                <input type="number" class="form-control" id="inputGroupFile01" name="extendedPrice" value="{{ product.extended_price }}">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">A minimum of <strong>$200</strong> and a maximum of <strong>$4800</strong></small>
+                                        <p class="text-muted"><small>This is the product price for the <strong>Extended License</strong></small></p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <p class="font-secondary">Choose one which appplies<span class="text-danger">*</span>
+                                            (Default: Non-exclusive) </p>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio"  required id="exclusive" name="exclusive"
+                                                   class="custom-control-input" value="1">
+                                            <label class="custom-control-label" for="exclusive">Exclusive (20%)</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" checked id="nonexclusive" name="exclusive"
+                                                   class="custom-control-input" value="0">
+                                            <label class="custom-control-label" for="nonexclusive">Non-Exclusive (50%)</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <p class="font-secondary">Choose Payment gateway for customers<span class="text-danger">*</span>
+                                            (Default: paddle) </p>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" checked required id="customRadioInline1" name="gateway"
+                                                   class="custom-control-input" value="paddle">
+                                            <label class="custom-control-label" for="customRadioInline1">Pay with Paddle</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline2" name="gateway"
+                                                   class="custom-control-input" value="stripe">
+                                            <label class="custom-control-label" for="customRadioInline2">Pay with Stripe</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline3" name="gateway"
+                                                   class="custom-control-input" value="bitpay">
+                                            <label class="custom-control-label" for="customRadioInline3">BitPay</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="m-b-10">
+                                        <p class="font-secondary mb-2">
+                                            Compatible with <span class="text-danger">*</span>
+                                        </p>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio1" checked name="compatibility" value="Bootstrap5" required class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio1">Bootstrap 5.x</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio2" name="compatibility" value="Bootstrap4" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio2">Bootstrap 4.x</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio3" name="compatibility" value="Bootstrap3" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio3">Bootstrap 3.x</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio4" name="compatibility" value="Wordpress" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio4">Wordpress</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio5" name="compatibility" value="Jekyll" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio5">Jekyll</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio6" name="compatibility" value="react" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio6">React</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio7" name="compatibility" value="other" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio7">Other</label>
+                                        </div>
+                                        <p><small class="text-muted">Select the compatibility of your Item</small></p>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="version">Version <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" required name="version" id="version" value="{{ product.version }}">
+                                            <small class="text-muted">Your product's current version number. Default is 1.0</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="m-b-10">
+                                        <p class="font-secondary mb-2">Browser Support <span class="text-danger">*</span></p>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="chrome" value="chrome" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">Chrome</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="firefox" value="firefox" class="custom-control-input" id="customCheck10">
+                                            <label class="custom-control-label" for="customCheck10">Firefox</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="safari" value="safari" class="custom-control-input" id="customCheck11">
+                                            <label class="custom-control-label" for="customCheck11">Safari</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="edge" value="edge" class="custom-control-input" id="customCheck13">
+                                            <label class="custom-control-label" for="customCheck13">Edge</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="explorer11" value="explorer11" class="custom-control-input" id="customCheck14">
+                                            <label class="custom-control-label" for="customCheck14">Eexplore 11</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="explorer10" value="explorer10" class="custom-control-input" id="customCheck15">
+                                            <label class="custom-control-label" for="customCheck15">Explore 10</label>
+                                        </div>
+                                        <small class="text-muted">All the above are selected by default. De-select if it does not apply</small>
+                                    </div>
+
+                                    <div class="m-b-10">
+                                        <p class="font-secondary mb-2">Layout Type</p>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="fixed"  class="custom-control-input" id="customCheck16">
+                                            <label class="custom-control-label" for="customCheck16">Fixed</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="responsive" class="custom-control-input" id="customCheck17">
+                                            <label class="custom-control-label" for="customCheck17">Responsive</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="fluid" class="custom-control-input" id="customCheck18">
+                                            <label class="custom-control-label" for="customCheck18">Fluid</label>
+                                        </div>
+                                        <small class="text-muted">Uncheck boxes if layout type is not applicable to your product</small>
+                                    </div>
+
+                                    <div class="m-b-15">
+                                        <p class="font-secondary mb-2">CSS Preprocessors</p>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="saas"  class="custom-control-input" id="customCheck19">
+                                            <label class="custom-control-label" for="customCheck19">Saas</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="scss" class="custom-control-input" id="customCheck20">
+                                            <label class="custom-control-label" for="customCheck20">SCSS</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" checked name="less" class="custom-control-input" id="customCheck21">
+                                            <label class="custom-control-label" for="customCheck21">Less</label>
+                                        </div>
+                                        <small class="text-muted">Mark the use above if your product includes CSS preprocessors</small>
+                                    </div>
+
+                                    <div class="m-b-10">
+                                        <p class="font-secondary mb-2">
+                                            Category <span class="text-danger">*</span>
+                                        </p>
+                                        <select class="custom-select js-select2" name="category" required="">
+                                            <option value="{{ product.category }}">{{ product.category }}</option>
+
+                                            <option value="1">Ecommerce</option>
+                                            <option value="2">Digital Marketing</option>
+                                            <option value="3">Other</option>
+                                            <option value="4">Other2</option>
+                                        </select>
+                                        <small class="text-muted">Choose a category that best describes the purpose of your product</small>
+                                    </div>
+
+                                    <div class="m-b-15">
+                                        <p class="font-secondary mb-2">
+                                            Topic <span class="text-danger">*</span>
+                                        </p>
+                                        <select class="custom-select" name="topic" required="">
+                                            <option value="{{ product.topic }}">{{ product.topic }}</option>
+                                            <option value="1">General</option>
+                                            <option value="2">Entrepreneaurs</option>
+                                            <option value="3">Two</option>
+                                            <option value="4">Three</option>
+                                        </select>
+                                        <small class="text-muted">Topic is the audience that your product is most related to</small>
+                                        <p><small class="text-muted">If none applies, choose <strong>General</strong></small></p>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label class="font-secondary">Tags <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" required name="tags">{{ product.tags }}</textarea>
+                                        <p><small class="text-muted">10 keywords separated by commas (eg: modern, design, theme, landing page) that describes you product</small></p>
+                                    </div>
+
+                                    <div class="m-b-15">
+                                        <p class="font-secondary mb-2">
+                                            Status <span class="text-danger">*</span>
+                                        </p>
+                                        <select class="custom-select" name="status" required="">
+                                            <option value="{{ product.status }}">{{ product.status }}</option>
+                                            
+                                            <option value="published">published</option>
+                                            <option value="pending">pending</option>
+                                            <option value="removed">removed</option>
+                                            
+                                        </select>
+                                        <small class="text-muted">status helps to track the product movement.</small>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label class="font-secondary">Description <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" required="" rows="10" name="description" >{{ product.description }}</textarea>
+                                        <p><small class="text-muted">Describe your product and it's features</small></p>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="preview">Preview URL <span class="text-danger">*</span></label>
+                                            <input type="URL" class="form-control" name="link" value="{{ product.link }}" id="previewLink" placeholder="Https://devfrek1.000webhostapp.com">
+                                            <small class="text-muted">Provide the URL to the preview of your product</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Edited starts here -->
+                                    <div class="form-row">
+                                        <div class="form-group col-md-10">
+                                            <label for="thumbnail">Thumbnail <span class="text-danger">*</span></label>
+                                            <input type="file" class="form-control" required accept=".jpg, .jpeg, .png" name="thumbnail" id="thumbnail">
+                                            <small class="text-muted">A screenshot of your product</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-10">
+                                            <label for="zipfile">File (*.zip) <span class="text-danger">*</span></label>
+                                            <input type="file" class="form-control" accept=".zip" required name="zipfile" id="zipfile">
+                                            <small class="text-muted">A zip file of your product</small>
+                                        </div>
+                                    </div>
+                                    <!-- Edited ends here -->
+
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" required type="checkbox" id="gridCheck">
+                                            <label class="form-check-label" for="gridCheck"><strong>I agree</strong> that my product adheres to the <a href="#"><strong class="text-info">Terms</strong></a> and <a href="#"><strong class="text-info">Conditions</strong></a> regarding copyright
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        
+                                        <button class="btn btn-success" type="submit">Update</button>
+                                    </div>
+                                </form>
+                                <a href="/"><button class="btn btn-secondary">Back</button></a>
+
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <!--widget card ends-->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    
+    {% endblock %}

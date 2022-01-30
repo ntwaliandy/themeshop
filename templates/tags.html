@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+
+        <section class="admin-content">
+                <div class=" bg-dark m-b-30 bg-stars">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 m-auto text-white p-t-40 p-b-90">
+                                {% for message in messages %}
+                                    <div class="alert alert-border-info  alert-dismissible fade show" role="alert">
+                                        <div class="d-flex">
+                                            <div class="icon">
+                                                <i class="icon mdi mdi-alert-octagram"></i>
+                                            </div>
+                                            <div class="content text-dark">
+                                                {{message}}
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <h1><span class="js-greeting"></span>, {{ name }} </h1>
+                                <p class="opacity-75">
+                                    Add, Remove and Update your tags here <br>
+                                </p>
+
+                            </div>
+                            <div class="col-md-4 m-auto text-white p-t-40 p-b-90">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container pull-up">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card m-b-30">
+                                <div class="card-header">
+                                    <h5 class="m-b-0">
+                                        Add Tag
+                                    </h5>
+                                    <p class="m-b-0 text-muted">
+                                        Standard form
+                                    </p>
+                                </div>
+                                <div class="card-body ">
+                                    <form action="{% url 'home:tags' %}add/" method="post">
+                                        {% csrf_token %}
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="inputEmail4">Tag Name</label>
+                                                <input type="text" class="form-control" name="tag" required id="inputEmail4" placeholder="Tag">
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="inputPassword4">Slug</label>
+                                                <input type="text" class="form-control" name="slug" placeholder="-- slug --">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary">Add</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 m-b-30">
+                            <div class="card ">
+                                <div class="card-header">
+                                    <div class="card-title">All Tags</div>
+                                </div>
+                                <div class="list-group list-group-flush ">
+
+                                    {% if tags %}
+                                        {% for tag in tags %}
+                                            <div class="list-group-item d-flex  align-items-center">
+                                                <div class="">
+                                                    <div>{{ tag.tag_name }}</div>
+                                                </div>
+                
+                                                <div class="ml-auto">
+                                                    <div class="dropdown">
+                                                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="mdi  mdi-dots-vertical mdi-18px"></i> </a>
+                
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a href="/edittag?pid={{ tag.id }}"><button class="dropdown-item" type="button">Edit</button></a>
+                                                            <a href="/deltag?pid={{ tag.id }}"><button class="dropdown-item text-danger" type="button">Delete</button></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card-body">
+                            <div class="chart">
+                                <div id="apexchart-01" class="chart-canvas"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+    
+    {% endblock %}

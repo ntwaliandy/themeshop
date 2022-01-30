@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+    {% load static %}
+
+        {% block content %}
+
+            <section class="admin-content">
+                <div class="container">
+
+                    <!-- // CARDS -->
+                    <div class="row my-5">
+                        <div class="col m-b-30">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <div class="card-controls">
+                                        <!-- <a href="#" class="badge badge-soft-success"> <i class="mdi mdi-arrow-down"></i> 12
+                                            %</a> -->
+                                    </div>
+                                    <div class="text-center p-t-30 p-b-20">
+                                        <div class="text-overline text-muted opacity-75">Total Orders</div>
+                                        <h1 class="text-success">$ {{ total_orders }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m-b-30">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <div class="card-controls">
+                                        <!-- <a href="#" class="badge badge-soft-danger"> <i class="mdi mdi-arrow-down"></i> 35 %</a> -->
+                                    </div>
+                                    <div class="text-center p-t-30 p-b-20">
+                                        <div class="text-overline text-muted opacity-75">Total Earnings</div>
+                                        <h1 class="text-success">{{ total_earnings }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m-b-30">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <div class="card-controls">
+                                        <!-- <a href="#" class="badge badge-soft-success"> <i class="mdi mdi-arrow-up"></i> 32 %</a> -->
+                                    </div>
+                                    <div class="text-center p-t-30 p-b-20">
+                                        <div class="text-overline text-muted opacity-75">
+                                            Total Products
+                                        </div>
+                                        <h1 class="text-success">{{ total_products }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- // GRAPH -->
+                    <div class="row">
+                        <div class="col-lg-8 m-b-30">
+                            <div class="row">
+                                <div class="col-md-6 m-b-10">
+                                    <h3>Transactions</h3>
+                                </div>
+                                <div class="col-md-6 text-right p-b-10  my-auto">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-white shadow-none js-datepicker"><i
+                                                    class="mdi mdi-calendar"></i> Pick Date
+                                        </button>
+                                        <button type="button" class="btn btn-white shadow-none">Daily</button>
+                                        <button type="button" class="btn btn-primary shadow-none">Monthly</button>
+                                        <button type="button" class="btn btn-white shadow-none">Yearly</button>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card m-b-30">
+                                        <div class="card-body">
+                                            <h2>Sales</h2>
+                                            <p class="text-muted">( Populated by dummy data )</p>
+                                            <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-dark m-b-30 card" >
+                                <div class="card-body">
+                                    <h3>Recent Orders</h3>
+                                    <div class="table-responsive">
+
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Item Name</th>
+                                                <th>Amount Paid</th>
+                                                <th>Order Date</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% if recent_orders %}
+                                                {% for order in recent_orders %}
+                                                    <tr>
+                                                        <td>{{ order.product_name }}</td>
+                                                        <td>$ {{ order.payment }}</td>
+                                                        <td>{{ order.dtime }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% else %}
+                                                    <tr>
+                                                        <td colspan="3">No Recent Orders</td>
+                                                    </tr>
+                                            {% endif %}
+                                            
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-md-12">
+                            <h3>Popular Products</h3>
+                        </div>
+
+                        {% if best_products %}
+                            {% for product in best_products %}
+                                <div class="col-md-4 m-b-30">
+                                    <!--widget card begin-->
+                                    <div class="card">
+                                        <div class="card-media pos-relative">
+                                            <img class="card-img" style="width: 100%; height: 200px;" src="{{ product.thumbnail.url }}" alt="Card image">
+                                            <div class="card-img-overlay text-white bg-overlay">
+                                                <div class="card-controls">
+                                                    <div class="dropdown">
+                                                        <a href="#" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false"> <i class="icon mdi  mdi-dots-vertical"></i> </a>
+
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <button class="dropdown-item" type="button">View</button>
+                                                            <a href="#"><button class="dropdown-item" type="button">Edit</button></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <a href="#" class="h4">{{ product.brand }}</a>
+
+                                        </div>
+                                        <div class="card-footer ">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <strong>$ {{ product.list_price }}</strong>
+                                                </div>
+                                                <div class="col-md-6 text-md-right">
+                                                    <h6 class="badge badge-soft-primary"> {{ product.orders }} + Sales
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--widget card ends-->
+
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                    </div>
+
+
+                </div>
+                </section>
+
+                <script>
+                    var xValues = [50,60,70,80,90,100,110,120,130,140,150];
+                    var yValues = [7,8,8,9,9,9,10,11,14,14,15];
+                    
+                    new Chart("myChart", {
+                      type: "line",
+                      data: {
+                        labels: xValues,
+                        datasets: [{
+                          fill: false,
+                          lineTension: 0,
+                          backgroundColor: "rgba(0,0,255,1.0)",
+                          borderColor: "rgba(0,0,255,0.1)",
+                          data: yValues
+                        }]
+                      },
+                      options: {
+                        legend: {display: false},
+                        scales: {
+                          yAxes: [{ticks: {min: 6, max:16}}],
+                        }
+                      }
+                    });
+                </script>
+        {% endblock %}

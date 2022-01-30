@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+        <section class="admin-content">
+                <div class=" bg-dark m-b-30 bg-stars">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 m-auto text-white p-t-40 p-b-90">
+
+                                <h1>Order Activity.</h1>
+                                <p class="opacity-75">
+                                    An insight about your products
+                                </p>
+                            </div>
+                            <div class="col-md-4 m-auto text-white p-t-40 p-b-90">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="container pull-up m-b-20">
+                    <div class="row">
+
+                        <div class="col m-b-30">
+                            <div class="card ">
+                                <div class="text-center card-body">
+                                    <div class="text-success   ">
+                                        <div class="avatar avatar-sm ">
+                                            <span class="avatar-title rounded-circle badge-soft-success">
+                                                <i class="mdi mdi-briefcase-check mdi-24px"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class=" text-center">
+                                        <h3>{{completed}} </h3>
+                                    </div>
+                                    <div class="text-overline ">
+                                        Completed
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m-b-30">
+                            <div class="card ">
+                                <div class="   text-center card-body">
+                                    <div class="text-danger   ">
+                                        <div class="avatar avatar-sm ">
+                                            <span class="avatar-title rounded-circle badge-soft-danger">
+                                                <i class="mdi mdi-arrow-collapse-horizontal mdi-24px"></i> 
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class=" text-center">
+                                        <h3>{{reversed}} </h3>
+                                    </div>
+                                    <div class="text-overline ">
+                                        Reversed
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m-b-30">
+                            <div class="card ">
+                                <div class="   text-center card-body">
+                                    <div class="text-warning   ">
+                                        <div class="avatar avatar-sm ">
+                                            <span class="avatar-title rounded-circle badge-soft-warning">
+                                                <i class="mdi mdi-cloud-alert mdi-24px"></i> 
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class=" text-center">
+                                        <h3> {{on_hold}} </h3>
+                                    </div>
+                                    <div class="text-overline ">
+                                        On - Hold
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 m-b-10">
+                            
+                        </div>
+                        <div class="col-md-6 text-right p-b-10  my-auto">
+                            <form action="">
+                                <p>Export .csv</p>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <select class="custom-select" required="">
+                                        <option>-- select year --</option>
+                                        <option value="1">2020</option>
+                                        <option value="2">2021</option>
+                                        <option value="3">2022</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary shadow-none">Export</button>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <div class="table-responsive p-t-10">
+                                        <table id="example-multi" class="table   " style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Order#</th>
+                                                <th>Item</th>
+                                                <th>Payment</th>
+                                                <th>Earnings</th>
+                                                <th>Status</th>
+                                                <th>Date & Time</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% if orders %}   
+                                                {% for order in orders %}
+                                                    <tr>
+                                                        <td>{{order.checkout_id}}</td>
+                                                        <td>{{order.item_name}}</td>
+                                                        <td>{{order.payment}}</td>
+                                                        <td>{{order.earnings}}</td>
+                                                        <td>{{order.status}}</td>
+                                                        <td>{{order.dtime}}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% else %}
+                                                <tr>
+                                                    <td>NO RECORDS AVAILABLE</td>
+                                                </tr>
+                                            {% endif %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+    {% endblock %}
