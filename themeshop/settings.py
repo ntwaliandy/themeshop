@@ -26,7 +26,7 @@ SECRET_KEY = '*7awr(7fvfh(+glzi!ef=wn!^zv6eaigzle=zb2f_ngd*zbij7'
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['themeshop.pythonanywhere.com']
 
 
 # Application definition
